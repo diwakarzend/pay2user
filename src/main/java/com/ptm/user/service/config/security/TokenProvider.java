@@ -17,7 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import com.ptm.user.service.business.JwtUserDetailsBusiness;
+import com.ptm.user.service.business.impl.UserDetailsBusinessImpl;
 import com.ptm.user.service.config.CustomUserDetails;
 
 import io.jsonwebtoken.Claims;
@@ -46,7 +46,7 @@ public class TokenProvider {
 	private long tokenValidityInMillisecondsForRememberMe;
 
 	@Autowired
-	private JwtUserDetailsBusiness userDetailsService;
+	private UserDetailsBusinessImpl userDetailBuiness;
 
 	@PostConstruct
 	public void init() {
@@ -82,7 +82,7 @@ public class TokenProvider {
 				.collect(Collectors.toList());
 
 		// User principal = new User(claims.getSubject(), "", authorities);
-		CustomUserDetails principal = userDetailsService.loadUserByUsername(claims.getSubject());
+		CustomUserDetails principal = userDetailBuiness.loadUserByUsername(claims.getSubject());
 		return new UsernamePasswordAuthenticationToken(principal, token, authorities);
 	}
 

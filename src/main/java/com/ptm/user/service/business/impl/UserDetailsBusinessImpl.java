@@ -1,4 +1,4 @@
-package com.ptm.user.service.business;
+package com.ptm.user.service.business.impl;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -20,13 +20,13 @@ import com.ptm.user.service.exception.UserNotActivatedException;
 import com.ptm.user.service.repository.UserRepository;
 
 @Service
-public class JwtUserDetailsBusiness implements UserDetailsService {
+public class UserDetailsBusinessImpl implements UserDetailsService {
 
-    private final Logger log = LoggerFactory.getLogger(JwtUserDetailsBusiness.class);
+    private final Logger log = LoggerFactory.getLogger(UserDetailsBusinessImpl.class);
 
     private final UserRepository userRepository;
 
-    public JwtUserDetailsBusiness(UserRepository userRepository) {
+    public UserDetailsBusinessImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
