@@ -111,7 +111,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	GrantedAuthorityDefaults grantedAuthorityDefaults() {
-		return new GrantedAuthorityDefaults("ROLE_"); // Remove the ROLE_ prefix
+		return new GrantedAuthorityDefaults("PTM_"); // Remove the ROLE_ prefix
 	}
 
 }

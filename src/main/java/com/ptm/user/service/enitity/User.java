@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -99,7 +98,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	private Instant resetDate = null;
 
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_authority", joinColumns = {
 			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "authority_name", referencedColumnName = "name") })
@@ -107,10 +106,34 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	private Set<Authority> authorities = new HashSet<>();
 
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles = new HashSet<>();
-
+	
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_menu", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "menu_id", referencedColumnName = "id"))
+	private Collection<MenuMaster> menu = new HashSet<>();
+	
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_service_mapping", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id"))
+	private Collection<ServiceMaster> serviceMaster = new HashSet<>();
+	
+	
+	@Column(name = "uuid")
+	private String uuid;
+	
+	@Column(name = "mobile_verified")
+	private String mobileVerified;
+	
+	
+	@Column(name = "iso_code")
+	private String isoCode;
+	
+	@Column(name = "user_source")
+	private String userSource;
+	
 	public Long getId() {
 		return id;
 	}
@@ -229,6 +252,58 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
 	public void setPhonenumber(String phonenumber) {
 		this.phonenumber = phonenumber;
+	}
+	
+	
+
+	public Collection<MenuMaster> getMenu() {
+		return menu;
+	}
+
+	public void setMenu(Collection<MenuMaster> menu) {
+		this.menu = menu;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public String getMobileVerified() {
+		return mobileVerified;
+	}
+
+	public void setMobileVerified(String mobileVerified) {
+		this.mobileVerified = mobileVerified;
+	}
+
+	public String getIsoCode() {
+		return isoCode;
+	}
+
+	public void setIsoCode(String isoCode) {
+		this.isoCode = isoCode;
+	}
+
+	public String getUserSource() {
+		return userSource;
+	}
+
+	public void setUserSource(String userSource) {
+		this.userSource = userSource;
+	}
+	
+	
+
+	public Collection<ServiceMaster> getServiceMaster() {
+		return serviceMaster;
+	}
+
+	public void setServiceMaster(Collection<ServiceMaster> serviceMaster) {
+		this.serviceMaster = serviceMaster;
 	}
 
 	@Override
