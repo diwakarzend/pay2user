@@ -9,8 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "service_master")
+@Getter
+@Setter
 public class ServiceMaster extends AbstractAuditingEntity implements Serializable {
 
 	/**
@@ -27,31 +32,6 @@ public class ServiceMaster extends AbstractAuditingEntity implements Serializabl
 
 	@Column(name = "status")
 	private String status;
-
-	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getServiceName() {
-		return serviceName;
-	}
-
-	public void setServiceName(String serviceName) {
-		this.serviceName = serviceName;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
 	
 	

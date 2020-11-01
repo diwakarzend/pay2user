@@ -12,6 +12,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.Getter;
+import lombok.Setter;
+
 
 /**
  * The persistent class for the proof_doc_name database table.
@@ -19,6 +22,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="proof_doc_name")
+@Getter
+@Setter
 public class ProofDocName implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -59,91 +64,6 @@ public class ProofDocName implements Serializable {
 	
 	
 
-	public ProofDocName() {
-	}
 
-	public int getProofDocNameId() {
-		return this.proofDocNameId;
-	}
-
-	public void setProofDocNameId(int proofDocNameId) {
-		this.proofDocNameId = proofDocNameId;
-	}
-
-	public byte getAcctCatId() {
-		return this.acctCatId;
-	}
-
-	public void setAcctCatId(byte acctCatId) {
-		this.acctCatId = acctCatId;
-	}
-
-	public Date getCreatedTs() {
-		return this.createdTs;
-	}
-
-	public void setCreatedTs(Date createdTs) {
-		this.createdTs = createdTs;
-	}
-
-	public String getCreatedUser() {
-		return this.createdUser;
-	}
-
-	public void setCreatedUser(String createdUser) {
-		this.createdUser = createdUser;
-	}
-
-	public String getIsActive() {
-		return this.isActive;
-	}
-
-	public void setIsActive(String isActive) {
-		this.isActive = isActive;
-	}
-
-	public String getIsDefault() {
-		return this.isDefault;
-	}
-
-	public void setIsDefault(String isDefault) {
-		this.isDefault = isDefault;
-	}
-
-	public String getIsExtra() {
-		return this.isExtra;
-	}
-
-	public void setIsExtra(String isExtra) {
-		this.isExtra = isExtra;
-	}
-
-	
-
-	public String getProofDocNameEn() {
-		return this.proofDocNameEn;
-	}
-
-	public void setProofDocNameEn(String proofDocNameEn) {
-		this.proofDocNameEn = proofDocNameEn;
-	}
-
-	public Date getUpdatedTs() {
-		return this.updatedTs;
-	}
-
-	public void setUpdatedTs(Date updatedTs) {
-		this.updatedTs = updatedTs;
-	}
-
-	public String getUpdatedUser() {
-		return this.updatedUser;
-	}
-
-	public void setUpdatedUser(String updatedUser) {
-		this.updatedUser = updatedUser;
-	}
-
-	
 
 }

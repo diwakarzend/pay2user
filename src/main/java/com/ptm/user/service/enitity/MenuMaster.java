@@ -10,8 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import lombok.Setter;
+
+import lombok.Getter;
+
 @Entity
 @Table(name = "menu_master")
+@Getter
+@Setter
 public class MenuMaster extends AbstractAuditingEntity implements Serializable{
 	
 	/**
@@ -30,31 +36,6 @@ public class MenuMaster extends AbstractAuditingEntity implements Serializable{
 	@Column(name = "status")
 	private String status;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getMenuName() {
-		return menuName;
-	}
-
-	public void setMenuName(String menuName) {
-		this.menuName = menuName;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	
-	
 	
 
 }
