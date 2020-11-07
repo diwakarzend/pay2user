@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,11 +29,16 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ptm.user.service.config.Constants;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * A user.
  */
 @Entity
 @Table(name = "user")
+@Getter
+@Setter
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAuditingEntity implements Serializable {
 
@@ -99,7 +103,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	private Instant resetDate = null;
 
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_authority", joinColumns = {
 			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "authority_name", referencedColumnName = "name") })
@@ -107,130 +111,35 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	private Set<Authority> authorities = new HashSet<>();
 
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles = new HashSet<>();
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username.toLowerCase();
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	public boolean getActivated() {
-		return activated;
-	}
-
-	public void setActivated(boolean activated) {
-		this.activated = activated;
-	}
-
-	public String getActivationKey() {
-		return activationKey;
-	}
-
-	public void setActivationKey(String activationKey) {
-		this.activationKey = activationKey;
-	}
-
-	public String getResetKey() {
-		return resetKey;
-	}
-
-	public void setResetKey(String resetKey) {
-		this.resetKey = resetKey;
-	}
-
-	public Instant getResetDate() {
-		return resetDate;
-	}
-
-	public void setResetDate(Instant resetDate) {
-		this.resetDate = resetDate;
-	}
-
-	public String getLangKey() {
-		return langKey;
-	}
-
-	public void setLangKey(String langKey) {
-		this.langKey = langKey;
-	}
-
-	public Set<Authority> getAuthorities() {
-		return authorities;
-	}
-
-	public void setAuthorities(Set<Authority> authorities) {
-		this.authorities = authorities;
-	}
-
-	public Collection<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Collection<Role> roles) {
-		this.roles = roles;
-	}
-
-	public String getPhonenumber() {
-		return phonenumber;
-	}
-
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
-	}
-
+	
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_menu", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "menu_id", referencedColumnName = "id"))
+	private Collection<MenuMaster> menu = new HashSet<>();
+	
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_service_mapping", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id"))
+	private Collection<ServiceMaster> serviceMaster = new HashSet<>();
+	
+	
+	@Column(name = "uuid")
+	private String uuid;
+	
+	@Column(name = "mobile_verified")
+	private String mobileVerified;
+	
+	
+	@Column(name = "iso_code")
+	private String isoCode;
+	
+	@Column(name = "user_source")
+	private String userSource;
+	
+	
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {

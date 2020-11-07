@@ -2,6 +2,7 @@ package com.ptm.user.service.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import javax.validation.Valid;
 import org.omg.CORBA.UserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ptm.user.service.business.UserBusiness;
+import com.ptm.user.service.business.UserMenuBusiness;
 import com.ptm.user.service.business.impl.MailBusinessImpl;
 import com.ptm.user.service.config.AuthoritiesConstants;
 import com.ptm.user.service.config.Constants;
@@ -48,6 +51,9 @@ public class UserResource {
 
 
     private final MailBusinessImpl mailService;
+    
+    @Autowired
+    private UserMenuBusiness userMenuBusiness;
 
     public UserResource(UserBusiness userService, MailBusinessImpl mailService) {
 
@@ -154,4 +160,13 @@ public class UserResource {
         userService.deleteUser(login);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert( "userManagement.deleted", login)).build();
     }
+    
+    
+    @GetMapping("/users/menus")
+	public ResponseEntity<List<String>> userMenus() {
+		userMenuBusiness.getMenuMasterByUser();
+		return new ResponseEntity<>(userMenuBusiness.getMenuMasterByUser(), HttpStatus.OK);
+
+	}
+    
 }

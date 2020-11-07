@@ -49,7 +49,7 @@ public class UserDetailsBusinessImpl implements UserDetailsService {
     }
 
     private CustomUserDetails createSpringSecurityUser(String lowercaseLogin, User user) {
-        if (!user.getActivated()) {
+        if (!user.isActivated()) {
            throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
         }
         Set<Role> grantedAuthorities = user.getRoles().stream()

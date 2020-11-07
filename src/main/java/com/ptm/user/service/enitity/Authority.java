@@ -2,6 +2,10 @@ package com.ptm.user.service.enitity;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -15,6 +19,8 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "authority")
+@Getter
+@Setter
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Authority implements Serializable {
 
@@ -26,13 +32,7 @@ public class Authority implements Serializable {
     @Column(length = 50)
     private String name;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+   
 
     @Override
     public boolean equals(Object o) {
